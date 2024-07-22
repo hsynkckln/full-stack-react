@@ -6,11 +6,11 @@ import Footer from '../components/Footer/Footer'
 function BlogPage() {
   return (
     <div>
-        <Header></Header>
+        
         <div className='blog-page'>
             <Blogs></Blogs>
         </div>
-        <Footer></Footer>
+        
     </div>
   )
 }

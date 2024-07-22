@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 function BlogItem() {
   return (
     <li className="blog-item">
-      <a href="#" className="blog-image">
+      <Link to="/blogdetails" className="blog-image">
         <img src="img/blogs/blog1.jpg" alt="" />
-      </a>
+      </Link>
       <div className="blog-info">
         <div className="blog-info-top">
           <span>25 Feb, 2021 </span>-<span>0 Comments</span>
@@ -15,7 +15,7 @@ function BlogItem() {
           <a href="#">Aliquam hendrerit mi metus</a>
         </div>
         <div className="blog-info-bottom">
-          <Link to="/blogdetails">Read More</Link>
+          <a >Read More</a>
         </div>
       </div>
     </li>

@@ -1,18 +1,32 @@
-import React from 'react'
+import React, { useState } from "react";
 import "./ProductItem.css";
-import {Link } from "react-router-dom";
-function ProductItem() {
+import { Link, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import { useCart } from "../../context/CartProvider";
+
+function ProductItem({ item, key }) {
+  const { addCart,cartItems } = useCart();
+
+  const filteredCart=cartItems.find(x=>x._id===item._id);//sepete eklenen ürünü buluyoruz
+  console.log(filteredCart);
+
+const originalPrice=item.price.current
+const discountPercent=item.price.discount
+  //indirimli fiyat hesaplama
+  const discountPrice=originalPrice - (originalPrice*discountPercent) /100;
+
+
   return (
-    <li className="product-item glide__slide glide__slide--active">
+    <div className="product-item glide__slide glide__slide--active">
       <div className="product-image">
         <a href="#">
-          <img src="img/products/product1/1.png" alt="" className="img1" />
-          <img src="img/products/product1/2.png" alt="" className="img2" />
+          <img src={item.img[1]} alt="" className="img1" />
+          <img src={item.img[2]} alt="" className="img2" />
         </a>
       </div>
       <div className="product-info">
         <a href="$" className="product-title">
-          Analogue Resin Strap
+          {item.name}
         </a>
         <ul className="product-star">
           <li>
@@ -32,18 +46,18 @@ function ProductItem() {
           </li>
         </ul>
         <div className="product-prices">
-          <strong className="new-price">$108.00</strong>
-          <span className="old-price">$165.00</span>
+          <strong className="new-price">${discountPrice}</strong>
+          <span className="old-price">${item.price.current}</span>
         </div>
-        <span className="product-discount">-22%</span>
+        <span className="product-discount">{item.price.discount}%</span>
         <div className="product-links">
-          <button className="add-to-cart">
+          <button onClick={() => addCart({...item,price:discountPrice})} disabled={filteredCart} className="add-to-cart">
             <i className="bi bi-basket-fill"></i>
           </button>
           <button>
             <i className="bi bi-heart-fill"></i>
           </button>
-          <Link to="/productDetails" className="product-link">
+          <Link to={`/productDetails/${item._id}`} className="product-link">
             <i className="bi bi-eye-fill"></i>
           </Link>
           <a href="#">
@@ -51,8 +65,11 @@ function ProductItem() {
           </a>
         </div>
       </div>
-    </li>
-  )
+    </div>
+  );
 }
 
-export default ProductItem
+export default ProductItem;
+ProductItem.propTypes = {
+  item: PropTypes.object,
+};

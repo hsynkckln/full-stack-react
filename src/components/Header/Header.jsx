@@ -1,7 +1,13 @@
 import React from "react";
 import "./Header.css";
-import { Link } from "react-router-dom";
-function Header() {
+import { Link, useLocation } from "react-router-dom";
+import Proptypes from "prop-types";
+import { useCart } from "../../context/CartProvider";
+function Header({ setIsSearchShow }) {
+  const { cartItems } = useCart();
+  const user = localStorage.getItem("user");
+  const { pathname } = useLocation();
+
   return (
     <header>
       <div className="global-notification">
@@ -9,7 +15,7 @@ function Header() {
           <p>
             SUMMER SALE FOR ALL SWIM SUITS AND FREE EXPRESS INTERNATIONAL
             DELIVERY - OFF 50%!
-            <a > SHOP NOW</a>
+            <a> SHOP NOW</a>
           </p>
         </div>
       </div>
@@ -28,7 +34,10 @@ function Header() {
               <nav className="navigation">
                 <ul className="menu-list">
                   <li className="menu-list-item">
-                    <Link to="/" className="menu-link active">
+                    <Link
+                      to="/"
+                      className={`menu-link ${pathname == "/" && "active"} `}
+                    >
                       Home
                       <i className="bi bi-chevron-down"></i>
                     </Link>
@@ -65,7 +74,12 @@ function Header() {
                     </div>
                   </li>
                   <li className="menu-list-item megamenu-wrapper">
-                    <Link to="/shoppage" className="menu-link">
+                    <Link
+                      to="/shoppage"
+                      className={`menu-link ${
+                        pathname == "/shoppage" && "active"
+                      }`}
+                    >
                       Shop
                       <i className="bi bi-chevron-down"></i>
                     </Link>
@@ -188,20 +202,38 @@ function Header() {
             <div className="header-right">
               <div className="header-right-links">
                 <Link to="/auth" className="header-account">
-                  <i className="bi bi-person"></i>
+                  <i  className="bi bi-person"></i>
                 </Link>
-                <button className="search-button">
+                <button
+                  onClick={() => setIsSearchShow(true)}
+                  className="search-button"
+                >
                   <i className="bi bi-search"></i>
                 </button>
-                <a href="#">
+                {/* <a href="#">
                   <i className="bi bi-heart"></i>
-                </a>
+                </a> */}
                 <div className="header-cart">
                   <Link to="/cart" className="header-cart-link">
                     <i className="bi bi-bag"></i>
-                    <span className="header-cart-count">0</span>
+                    <span className="header-cart-count">
+                      {cartItems.length}
+                    </span>
                   </Link>
                 </div>
+                {user && (
+                  <button
+                    onClick={() => {
+                      if(window.confirm("çıkış yapmak istiyormusunuz")){
+                        localStorage.removeItem("user")
+                        window.location.href="/"
+                      }
+                    }}
+                    className="search-button"
+                  >
+                    <i className="bi bi-box-arrow-right"></i>
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -212,3 +244,6 @@ function Header() {
 }
 
 export default Header;
+Header.propTypes = {
+  setIsSearchShow: Proptypes.func,
+};

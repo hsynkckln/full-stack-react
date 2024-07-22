@@ -5,9 +5,9 @@ import Footer from "../components/Footer/Footer";
 function CartPages() {
   return (
     <>
-      <Header />
+      
       <Cart />
-      <Footer />
+      
     </>
   );
 }

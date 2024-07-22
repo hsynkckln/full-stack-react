@@ -156,7 +156,7 @@ function Footer() {
         <div className="footer-copyright">
           <div className="site-copyright">
             <p>
-              Copyright 2022 © E-Commerce Theme. All right reserved. Powered by Emin Basbayan.
+              Copyright 2022 © E-Commerce Theme. All right reserved. Powered by Huseyin Kucukalan.
             </p>
           </div>
           <a href="#">

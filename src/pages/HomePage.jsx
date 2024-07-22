@@ -12,7 +12,7 @@ import Footer from "../components/Footer/Footer"
 function HomePage() {
   return (
     <div>
-      <Header></Header>
+      
       <Slider></Slider>
       <Categories></Categories>
       <Products></Products>
@@ -21,7 +21,7 @@ function HomePage() {
       <Brands></Brands>
       <CampaignSingle></CampaignSingle>
       <Policy></Policy>
-      <Footer></Footer>
+      
     </div>
   );
 }

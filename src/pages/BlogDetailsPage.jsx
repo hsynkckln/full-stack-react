@@ -5,9 +5,9 @@ import Footer from '../components/Footer/Footer'
 function BlogDetailsPage() {
   return (
     <div>
-        <Header></Header>
+        
         <BlogDetails></BlogDetails>
-        <Footer></Footer>
+        
     </div>
   )
 }

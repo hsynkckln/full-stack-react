@@ -1,6 +1,8 @@
 import React from 'react'
 import CartItem from './CartItem'
+import { useCart } from "../../context/CartProvider";
 function CartTable() {
+  const {cartItems}=useCart();
   return (
     <table className="shop-table">
       <thead>
@@ -14,8 +16,11 @@ function CartTable() {
         </tr>
       </thead>
       <tbody className="cart-wrapper">
-        <CartItem />
-        <CartItem />
+        {cartItems.map((item,key)=>(
+          <CartItem item={item} key={key}/>
+        ))}
+        
+        
       </tbody>
     </table>
   )

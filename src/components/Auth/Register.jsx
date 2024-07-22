@@ -1,16 +1,62 @@
-import React from 'react'
+import { useState } from "react";
+import {  message } from 'antd';
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const navigate=useNavigate();
+
+  const handleValue = (e) => {
+    
+    setFormData({ ...formData, [e.name]: e.value });
+  };
+
+  const handleRegister=async(e)=>{
+    e.preventDefault();
+    try {
+      const response= await fetch(`http://localhost:5000/api/auth/register`,{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify(formData)
+      })
+      if(response.ok){
+        const data=await response.json();
+        localStorage.setItem("user",JSON.stringify(data));
+        message.success("kayıt başarılı")
+        navigate("/")
+      }else{
+        message.success("kayıt başarısız")
+      }
+      console.log(response);
+    } catch (error) {
+      console.log("Giriş hatası:",error);
+    }
+  }
+
+
   return (
     <div className="account-column">
       <h2>Register</h2>
-      <form>
+      <form  onSubmit={handleRegister}>
         <div>
           <label>
             <span>
               Username <span className="required">*</span>
             </span>
-            <input type="text" />
+            <input
+              name="username"
+              value={formData.username}
+              onChange={(e) => {
+                handleValue(e.target);
+              }}
+              type="text"
+            />
           </label>
         </div>
         <div>
@@ -18,7 +64,14 @@ function Register() {
             <span>
               Email address <span className="required">*</span>
             </span>
-            <input type="email" />
+            <input
+              name="email"
+              value={formData.email}
+              onChange={(e) => {
+                handleValue(e.target);
+              }}
+              type="email"
+            />
           </label>
         </div>
         <div>
@@ -26,7 +79,14 @@ function Register() {
             <span>
               Password <span className="required">*</span>
             </span>
-            <input type="password" />
+            <input
+              name="password"
+              value={formData.password}
+              onChange={(e) => {
+                handleValue(e.target);
+              }}
+              type="password"
+            />
           </label>
         </div>
         <div className="privacy-policy-text remember">
@@ -39,7 +99,7 @@ function Register() {
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default Register
+export default Register;

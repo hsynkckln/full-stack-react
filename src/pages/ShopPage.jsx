@@ -9,13 +9,13 @@ import Footer from '../components/Footer/Footer'
 function ShopPage() {
   return (
     <>
-    <Header></Header>
+    
     <Categories></Categories>
     <Products></Products>
     <CampaignSingle></CampaignSingle>
     <Products></Products>
     <Policy></Policy>
-    <Footer></Footer>
+    
     </>
   )
 }

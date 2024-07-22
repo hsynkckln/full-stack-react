@@ -5,9 +5,9 @@ import Footer from "../components/Footer/Footer";
 function AuthPage() {
   return (
     <>
-      <Header></Header>
+      
       <Auth></Auth>
-      <Footer></Footer>
+      
     </>
   );
 }
